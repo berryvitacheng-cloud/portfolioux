@@ -155,7 +155,8 @@ footer p{font-size:12px;color:var(--bl)}
 
 @media(max-width:700px){
   nav{padding:0 20px}.container{padding:0 20px}section{padding:56px 0}
-  .hero-inner{grid-template-columns:1fr}.avatar-wrap{display:none}.hero-title{font-size:36px}
+  .hero-inner{grid-template-columns:1fr;gap:24px;display:flex;flex-direction:column-reverse;align-items:flex-start}
+  .avatar-wrap{align-self:flex-start}.avatar-wrap{width:120px;height:120px}.avatar-img{width:112px;height:112px}.avatar-ring{}.hero-title{font-size:36px}
   .about-grid{grid-template-columns:1fr}
   .case-body{padding:24px 24px 20px}.case-imgs{padding:20px 24px}
   .img-row{flex-direction:column}.img-row img{width:100%}
@@ -465,8 +466,15 @@ footer p{font-size:12px;color:var(--bl)}
     <h2>聊聊你的想法？</h2>
     <p>不管是合作機會、產品交流，<br>或只是想說聲哈囉，我都很歡迎。</p>
     <div class="contact-links">
-      <a class="cbtn" href="mailto:berryvitacheng@gmail.com">寄信給我 ✉</a>
-      <a class="cbtn-g" href="https://general-kumquat-0bb.notion.site/Berry-Cheng-7f81a97241ae4e22ab714845b67a3da9" target="_blank">Notion 作品集</a>
+      <a class="cbtn" href="mailto:berryvitacheng@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:7px"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>寄信給我
+      </a>
+      <a class="cbtn-g" href="https://www.linkedin.com/in/berrycheng/" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:7px"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+      </a>
+      <a class="cbtn-g" href="https://general-kumquat-0bb.notion.site/Berry-Cheng-7f81a97241ae4e22ab714845b67a3da9" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:7px"><path d="M4 4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4z" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Notion 作品集
+      </a>
     </div>
   </div>
 </div>
