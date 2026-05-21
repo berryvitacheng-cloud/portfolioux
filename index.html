@@ -25,6 +25,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(253,250,245,0.93);backdrop
 .nav-links a{font-size:12px;color:var(--b);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--or)}
 
+.lang-toggle{display:flex;align-items:center;gap:4px;margin-left:2px}
+.lang-btn{background:transparent;color:var(--b);border:.5px solid var(--bl);border-radius:100px;padding:5px 10px;font-size:11px;font-family:"DM Sans",sans-serif;cursor:pointer;transition:all .2s;line-height:1}
+.lang-btn:hover{border-color:var(--or);color:var(--or)}
+.lang-btn.active{background:var(--or);border-color:var(--or);color:#FDFAF5;font-weight:500}
+
 .container{max-width:860px;margin:0 auto;padding:0 48px}
 section{padding:80px 0}
 section+section{border-top:.5px solid var(--border)}
@@ -155,6 +160,11 @@ footer p{font-size:12px;color:var(--bl)}
 
 @media(max-width:700px){
   nav{padding:0 20px}.container{padding:0 20px}section{padding:56px 0}
+
+  .nav-links{gap:14px;flex-wrap:wrap;justify-content:flex-end}
+  .nav-links a{font-size:11px}
+  .lang-btn{padding:5px 9px;font-size:10px}
+
   .hero-inner{grid-template-columns:1fr;gap:24px;display:flex;flex-direction:column-reverse;align-items:flex-start}
   .avatar-wrap{align-self:flex-start}.avatar-wrap{width:120px;height:120px}.avatar-img{width:112px;height:112px}.avatar-ring{}.hero-title{font-size:36px}
   .about-grid{grid-template-columns:1fr}
@@ -206,7 +216,8 @@ footer p{font-size:12px;color:var(--bl)}
     <li><a href="#projects">Projects</a></li>
     <li><a href="#data">Research</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" target="_blank" style="color:var(--or);border:.5px solid var(--or);padding:5px 14px;border-radius:100px">Resume ↓</a></li>
+    <li class="lang-toggle" aria-label="Language switcher"><button type="button" class="lang-btn active" data-lang="zh" onclick="setLanguage('zh')">中文</button><button type="button" class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button></li>
+    <li><a href="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" data-i18n-href-zh="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" data-i18n-href-en="https://drive.google.com/file/d/1cohWqRk9fKiwXy5F3MaNJnSrs2jcDJ7Q/view?usp=drive_link" target="_blank" style="color:var(--or);border:.5px solid var(--or);padding:5px 14px;border-radius:100px">Resume ↓</a></li>
   </ul>
 </nav>
 
@@ -220,7 +231,7 @@ footer p{font-size:12px;color:var(--bl)}
       <div class="hero-btns">
         <a class="btn-p" href="#projects">看我的作品 →</a>
         <a class="btn-o" href="mailto:berryvitacheng@gmail.com">與我聯繫</a>
-        <a class="btn-o" href="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" target="_blank">下載履歷 ↓</a>
+        <a class="btn-o" href="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" data-i18n-href-zh="https://drive.google.com/file/d/1OvLW2nRJt_FS8S0uWFNGiC3Mm3T_3Orl/view?usp=sharing" data-i18n-href-en="https://drive.google.com/file/d/1cohWqRk9fKiwXy5F3MaNJnSrs2jcDJ7Q/view?usp=drive_link" target="_blank">下載履歷 ↓</a>
       </div>
       <div class="hero-stats">
         <div><div class="stat-num">30,000+</div><div class="stat-lbl">產品累積使用人次</div></div>
@@ -487,6 +498,771 @@ footer p{font-size:12px;color:var(--bl)}
   <p>Made with care ✦</p>
 </footer>
 
+
+<script>
+const I18N_TEXT = {
+  "鄭旭博 Berry Cheng": {
+    "zh": "鄭旭博 Berry Cheng",
+    "en": "Berry Cheng"
+  },
+  "✦": {
+    "zh": "✦",
+    "en": "✦"
+  },
+  "About": {
+    "zh": "關於",
+    "en": "About"
+  },
+  "Projects": {
+    "zh": "專案",
+    "en": "Projects"
+  },
+  "Research": {
+    "zh": "研究",
+    "en": "Research"
+  },
+  "Contact": {
+    "zh": "聯繫",
+    "en": "Contact"
+  },
+  "Resume ↓": {
+    "zh": "履歷 ↓",
+    "en": "Resume ↓"
+  },
+  "Product Manager · Taiwan": {
+    "zh": "產品經理 · 台灣",
+    "en": "Product Manager · Taiwan"
+  },
+  "以使用者與數據": {
+    "zh": "以使用者與數據",
+    "en": "User- and Data-Driven"
+  },
+  "為核心的": {
+    "zh": "為核心的",
+    "en": "Product"
+  },
+  "產品決策者": {
+    "zh": "產品決策者",
+    "en": "Decision Maker"
+  },
+  "橫跨教育、非營利、企業永續等領域，擅長將使用者洞察與資料分析轉化為具執行力的產品策略。從研究到上線，讓複雜的事變得清晰。": {
+    "zh": "橫跨教育、非營利、企業永續等領域，擅長將使用者洞察與資料分析轉化為具執行力的產品策略。從研究到上線，讓複雜的事變得清晰。",
+    "en": "With experience across education, nonprofit, and corporate sustainability, I turn user insights and data analysis into actionable product strategy. From research to launch, I make complex problems clear."
+  },
+  "看我的作品 →": {
+    "zh": "看我的作品 →",
+    "en": "View My Work →"
+  },
+  "與我聯繫": {
+    "zh": "與我聯繫",
+    "en": "Contact Me"
+  },
+  "下載履歷 ↓": {
+    "zh": "下載履歷 ↓",
+    "en": "Download Resume ↓"
+  },
+  "30,000+": {
+    "zh": "30,000+",
+    "en": "30,000+"
+  },
+  "產品累積使用人次": {
+    "zh": "產品累積使用人次",
+    "en": "Cumulative Product Users"
+  },
+  "6+": {
+    "zh": "6+",
+    "en": "6+"
+  },
+  "完整產品專案": {
+    "zh": "完整產品專案",
+    "en": "End-to-End Product Projects"
+  },
+  "3": {
+    "zh": "3",
+    "en": "3"
+  },
+  "深耕產業領域": {
+    "zh": "深耕產業領域",
+    "en": "Core Industry Domains"
+  },
+  "About Me": {
+    "zh": "關於我",
+    "en": "About Me"
+  },
+  "做產品，也做讓人感受到被理解的體驗": {
+    "zh": "做產品，也做讓人感受到被理解的體驗",
+    "en": "Building products and experiences that make people feel understood"
+  },
+  "擁有跨足教育、非營利組織與企業永續等領域的產品開發與研究經驗，擅長從實際問題出發，整合使用者回饋與資料洞察，規劃具執行力的產品策略。": {
+    "zh": "擁有跨足教育、非營利組織與企業永續等領域的產品開發與研究經驗，擅長從實際問題出發，整合使用者回饋與資料洞察，規劃具執行力的產品策略。",
+    "en": "I have product development and research experience across education, nonprofit organizations, and corporate sustainability. I start from real-world problems, integrate user feedback with data insights, and plan actionable product strategies."
+  },
+  "熟悉流程拆解、功能規格撰寫與內外部教育訓練設計，能協助跨部門與使用端理解產品邏輯，確保開發節奏穩定、交付品質一致。": {
+    "zh": "熟悉流程拆解、功能規格撰寫與內外部教育訓練設計，能協助跨部門與使用端理解產品邏輯，確保開發節奏穩定、交付品質一致。",
+    "en": "I am familiar with process breakdown, feature specification writing, and internal and external training design. I help cross-functional teams and end users understand product logic, keeping development cadence stable and delivery quality consistent."
+  },
+  "教育科技": {
+    "zh": "教育科技",
+    "en": "EdTech"
+  },
+  "非營利組織": {
+    "zh": "非營利組織",
+    "en": "Nonprofit Organizations"
+  },
+  "企業永續 ESG": {
+    "zh": "企業永續 ESG",
+    "en": "Corporate Sustainability / ESG"
+  },
+  "人資科技": {
+    "zh": "人資科技",
+    "en": "HR Tech"
+  },
+  "Web3.0": {
+    "zh": "Web3.0",
+    "en": "Web3.0"
+  },
+  "◎": {
+    "zh": "◎",
+    "en": "◎"
+  },
+  "使用者優先思維": {
+    "zh": "使用者優先思維",
+    "en": "User-First Mindset"
+  },
+  "每個決策從真實痛點出發，研究方法橫跨訪談、問卷、焦點團體": {
+    "zh": "每個決策從真實痛點出發，研究方法橫跨訪談、問卷、焦點團體",
+    "en": "Every decision starts from real pain points, using research methods across interviews, surveys, and focus groups."
+  },
+  "◈": {
+    "zh": "◈",
+    "en": "◈"
+  },
+  "數據驅動決策": {
+    "zh": "數據驅動決策",
+    "en": "Data-Driven Decision Making"
+  },
+  "量化研究、信效度檢驗、A/B 測試，讓假設有依據、迭代有方向": {
+    "zh": "量化研究、信效度檢驗、A/B 測試，讓假設有依據、迭代有方向",
+    "en": "Quantitative research, reliability and validity testing, and A/B testing make hypotheses grounded and iterations directional."
+  },
+  "◇": {
+    "zh": "◇",
+    "en": "◇"
+  },
+  "跨團隊協作": {
+    "zh": "跨團隊協作",
+    "en": "Cross-Functional Collaboration"
+  },
+  "串聯工程、設計、研究、業務，從 0 建立合作流程並推動落地": {
+    "zh": "串聯工程、設計、研究、業務，從 0 建立合作流程並推動落地",
+    "en": "Connecting engineering, design, research, and business teams to build collaboration workflows from zero and drive implementation."
+  },
+  "◬": {
+    "zh": "◬",
+    "en": "◬"
+  },
+  "清晰表達與提案": {
+    "zh": "清晰表達與提案",
+    "en": "Clear Communication and Proposal Writing"
+  },
+  "複雜研究結果轉化為可執行提案，代表團隊進行產品決策報告": {
+    "zh": "複雜研究結果轉化為可執行提案，代表團隊進行產品決策報告",
+    "en": "Turning complex research findings into executable proposals and presenting product decision reports on behalf of the team."
+  },
+  "1. INSULA": {
+    "zh": "1. INSULA",
+    "en": "1. INSULA"
+  },
+  "主打案例 · 行為科學 × 遊戲化": {
+    "zh": "主打案例 · 行為科學 × 遊戲化",
+    "en": "Featured Case · Behavioral Science × Gamification"
+  },
+  "Insula 遊戲化人資測評工具": {
+    "zh": "Insula 遊戲化人資測評工具",
+    "en": "Insula Gamified HR Assessment Tool"
+  },
+  "以遊戲化方式取代傳統量表，降低測驗偏誤與緊張失常。負責 4 款產品企劃提案、促成 2 款上線（Kmoji Detective、Big Five Ocean），從紙本原型到信效度檢驗全程參與，協調工程、設計、研究三方從零建立合作流程。": {
+    "zh": "以遊戲化方式取代傳統量表，降低測驗偏誤與緊張失常。負責 4 款產品企劃提案、促成 2 款上線（Kmoji Detective、Big Five Ocean），從紙本原型到信效度檢驗全程參與，協調工程、設計、研究三方從零建立合作流程。",
+    "en": "Replaced traditional scales with gamified assessments to reduce testing bias and performance anxiety. Led proposals for 4 product concepts and helped launch 2 products, Kmoji Detective and Big Five Ocean. Participated throughout the process from paper prototypes to reliability and validity testing, coordinating engineering, design, and research teams to build a collaboration workflow from zero."
+  },
+  "行為科學研究": {
+    "zh": "行為科學研究",
+    "en": "Behavioral Science Research"
+  },
+  "產品企劃": {
+    "zh": "產品企劃",
+    "en": "Product Planning"
+  },
+  "Wireframe": {
+    "zh": "線框稿",
+    "en": "Wireframe"
+  },
+  "信效度檢驗": {
+    "zh": "信效度檢驗",
+    "en": "Reliability & Validity Testing"
+  },
+  "使用者旅程圖": {
+    "zh": "使用者旅程圖",
+    "en": "User Journey Map"
+  },
+  "30K+": {
+    "zh": "30K+",
+    "en": "30K+"
+  },
+  "累積使用人次": {
+    "zh": "累積使用人次",
+    "en": "Cumulative Users"
+  },
+  "2 款": {
+    "zh": "2 款",
+    "en": "2"
+  },
+  "成功上線產品": {
+    "zh": "成功上線產品",
+    "en": "Products Launched"
+  },
+  "4 款": {
+    "zh": "4 款",
+    "en": "4"
+  },
+  "企劃提案": {
+    "zh": "企劃提案",
+    "en": "Product Proposals"
+  },
+  "2. BASKETBALL": {
+    "zh": "2. 籃球夢幻遊戲",
+    "en": "2. BASKETBALL"
+  },
+  "UX 研究 · Side Project": {
+    "zh": "UX 研究 · 個人專案",
+    "en": "UX Research · Side Project"
+  },
+  "籃球夢幻遊戲新功能使用者研究": {
+    "zh": "籃球夢幻遊戲新功能使用者研究",
+    "en": "User Research for New Features in a Fantasy Basketball Game"
+  },
+  "為 Daily Fantasy 遊戲探索小遊戲方向。訪談 4 位用戶（英文／他加祿語），產出 4 類人物誌、4 項產品斷點與 6 項功能方向檢核標準，提供主管與 PM 作為產品決策依據。": {
+    "zh": "為 Daily Fantasy 遊戲探索小遊戲方向。訪談 4 位用戶（英文／他加祿語），產出 4 類人物誌、4 項產品斷點與 6 項功能方向檢核標準，提供主管與 PM 作為產品決策依據。",
+    "en": "Explored mini-game directions for a Daily Fantasy game. Interviewed 4 users in English and Tagalog, producing 4 user personas, 4 product breakpoints, and 6 feature-direction evaluation criteria for supervisors and PMs to use in product decisions."
+  },
+  "使用者訪談 × 4": {
+    "zh": "使用者訪談 × 4",
+    "en": "User Interviews × 4"
+  },
+  "人物誌": {
+    "zh": "人物誌",
+    "en": "Personas"
+  },
+  "產品斷點分析": {
+    "zh": "產品斷點分析",
+    "en": "Product Breakpoint Analysis"
+  },
+  "功能檢核標準": {
+    "zh": "功能檢核標準",
+    "en": "Feature Evaluation Criteria"
+  },
+  "4": {
+    "zh": "4",
+    "en": "4"
+  },
+  "類使用者人物誌": {
+    "zh": "類使用者人物誌",
+    "en": "User Persona Types"
+  },
+  "6": {
+    "zh": "6",
+    "en": "6"
+  },
+  "項功能檢核標準": {
+    "zh": "項功能檢核標準",
+    "en": "Feature Evaluation Criteria"
+  },
+  "專業夢幻體育玩家": {
+    "zh": "專業夢幻體育玩家",
+    "en": "Professional Fantasy Sports Player"
+  },
+  "博弈玩家": {
+    "zh": "博弈玩家",
+    "en": "Wagering Player"
+  },
+  "體育愛好者": {
+    "zh": "體育愛好者",
+    "en": "Sports Enthusiast"
+  },
+  "遊戲社交者": {
+    "zh": "遊戲社交者",
+    "en": "Social Gamer"
+  },
+  "3. WEB3": {
+    "zh": "3. WEB3",
+    "en": "3. WEB3"
+  },
+  "原型測試 · Side Project": {
+    "zh": "原型測試 · 個人專案",
+    "en": "Prototype Testing · Side Project"
+  },
+  "Web3.0 身分驗證 Vibe Coding 原型測試": {
+    "zh": "Web3.0 身分驗證 Vibe Coding 原型測試",
+    "en": "Web3.0 Identity Verification Vibe Coding Prototype Test"
+  },
+  "與新創公司合作，研究 NFT 身份驗證在影音平台的使用情境。執行 20+ 訪談、AI 輔助分析（Felo / NotebookLM / ChatGPT），以 Lovable 生成 3 個原型進行 A/B 測試。核心洞察：速度優先但需保留最低": {
+    "zh": "與新創公司合作，研究 NFT 身份驗證在影音平台的使用情境。執行 20+ 訪談、AI 輔助分析（Felo / NotebookLM / ChatGPT），以 Lovable 生成 3 個原型進行 A/B 測試。核心洞察：速度優先但需保留最低",
+    "en": "Collaborated with a startup to research NFT identity verification scenarios on a video platform. Conducted 20+ interviews, used AI-assisted analysis with Felo, NotebookLM, and ChatGPT, and generated 3 Lovable prototypes for A/B testing. Core insight: speed comes first, while maintaining a minimum level of"
+  },
+  "20+ 訪談": {
+    "zh": "20+ 訪談",
+    "en": "20+ Interviews"
+  },
+  "A/B 測試": {
+    "zh": "A/B 測試",
+    "en": "A/B Testing"
+  },
+  "Vibe Coding": {
+    "zh": "Vibe Coding",
+    "en": "Vibe Coding"
+  },
+  "AI 輔助分析": {
+    "zh": "AI 輔助分析",
+    "en": "AI-Assisted Analysis"
+  },
+  "POC 驗證": {
+    "zh": "POC 驗證",
+    "en": "POC Validation"
+  },
+  "假設一": {
+    "zh": "假設一",
+    "en": "Hypothesis 1"
+  },
+  "swift-trust-login.lovable.app →": {
+    "zh": "swift-trust-login.lovable.app →",
+    "en": "swift-trust-login.lovable.app →"
+  },
+  "假設二": {
+    "zh": "假設二",
+    "en": "Hypothesis 2"
+  },
+  "fido-pass-flow.lovable.app →": {
+    "zh": "fido-pass-flow.lovable.app →",
+    "en": "fido-pass-flow.lovable.app →"
+  },
+  "假設三": {
+    "zh": "假設三",
+    "en": "Hypothesis 3"
+  },
+  "fido-auth-flow.lovable.app →": {
+    "zh": "fido-auth-flow.lovable.app →",
+    "en": "fido-auth-flow.lovable.app →"
+  },
+  "最終提案": {
+    "zh": "最終提案",
+    "en": "Final Proposal"
+  },
+  "trust-auth-experience.lovable.app →": {
+    "zh": "trust-auth-experience.lovable.app →",
+    "en": "trust-auth-experience.lovable.app →"
+  },
+  "A/B 測試洞察：安全感需求問題架構": {
+    "zh": "A/B 測試洞察：安全感需求問題架構",
+    "en": "A/B Testing Insight: Problem Structure of Security Needs"
+  },
+  "✦ 最終提案": {
+    "zh": "✦ 最終提案",
+    "en": "✦ Final Proposal"
+  },
+  "⚠️": {
+    "zh": "⚠️",
+    "en": "⚠️"
+  },
+  "此原型不支援嵌入，請點擊下方按鈕在新分頁開啟": {
+    "zh": "此原型不支援嵌入，請點擊下方按鈕在新分頁開啟",
+    "en": "This prototype does not support embedding. Please open it in a new tab using the button below."
+  },
+  "在新分頁開啟 →": {
+    "zh": "在新分頁開啟 →",
+    "en": "Open in New Tab →"
+  },
+  "在原型中互動，體驗不同驗證流程的速度與安全感差異": {
+    "zh": "在原型中互動，體驗不同驗證流程的速度與安全感差異",
+    "en": "Interact with the prototypes to experience differences in speed and perceived security across verification flows."
+  },
+  "4. WORKSHOP": {
+    "zh": "4. 工作坊",
+    "en": "4. WORKSHOP"
+  },
+  "UX 研究 · 共創工作坊": {
+    "zh": "UX 研究 · 共創工作坊",
+    "en": "UX Research · Co-Creation Workshop"
+  },
+  "後台報告團體共創工作坊": {
+    "zh": "後台報告團體共創工作坊",
+    "en": "Co-Creation Workshop for Backend Report Design"
+  },
+  "邀請有產品使用經驗的人資招募人員，以「發散腦力激盪 → 議題收斂 → 分組分享回饋」流程進行共創。整理討論內容，產出 7 大報告項目與閱讀順序建議，作為產品報告改版的決策基礎。": {
+    "zh": "邀請有產品使用經驗的人資招募人員，以「發散腦力激盪 → 議題收斂 → 分組分享回饋」流程進行共創。整理討論內容，產出 7 大報告項目與閱讀順序建議，作為產品報告改版的決策基礎。",
+    "en": "Invited HR recruiters with product experience to co-create through a process of divergent brainstorming, topic convergence, and group sharing and feedback. Organized the discussion outputs into 7 major report items and recommended reading order, forming the decision basis for the product report redesign."
+  },
+  "研究統籌": {
+    "zh": "研究統籌",
+    "en": "Research Coordination"
+  },
+  "工作坊主持": {
+    "zh": "工作坊主持",
+    "en": "Workshop Facilitation"
+  },
+  "質性分析": {
+    "zh": "質性分析",
+    "en": "Qualitative Analysis"
+  },
+  "共創設計": {
+    "zh": "共創設計",
+    "en": "Co-Creation Design"
+  },
+  "工作坊產出：7 大報告項目優先順序": {
+    "zh": "工作坊產出：7 大報告項目優先順序",
+    "en": "Workshop Output: Priority Order of 7 Major Report Items"
+  },
+  "5. HANDBOOK": {
+    "zh": "5. 工具書",
+    "en": "5. HANDBOOK"
+  },
+  "UX 研究 · 非營利": {
+    "zh": "UX 研究 · 非營利",
+    "en": "UX Research · Nonprofit"
+  },
+  "脊髓損傷照顧工具書研究與製作": {
+    "zh": "脊髓損傷照顧工具書研究與製作",
+    "en": "Research and Production of a Spinal Cord Injury Care Handbook"
+  },
+  "針對脊髓損傷者、家庭照顧者、專業照顧者各進行焦點團體訪談（共 3 場次、14 位參與者），整理照顧資訊需求，依據質性分析構築照顧工具書，印製紙本 1,000 份發送至各地協會，獲 100% 良好評價。": {
+    "zh": "針對脊髓損傷者、家庭照顧者、專業照顧者各進行焦點團體訪談（共 3 場次、14 位參與者），整理照顧資訊需求，依據質性分析構築照顧工具書，印製紙本 1,000 份發送至各地協會，獲 100% 良好評價。",
+    "en": "Conducted focus group interviews with people with spinal cord injuries, family caregivers, and professional caregivers across 3 sessions with 14 participants. Organized care information needs, built the handbook structure based on qualitative analysis, printed 1,000 physical copies for distribution to local associations, and received 100% positive feedback."
+  },
+  "焦點團體 × 3": {
+    "zh": "焦點團體 × 3",
+    "en": "Focus Groups × 3"
+  },
+  "質性研究": {
+    "zh": "質性研究",
+    "en": "Qualitative Research"
+  },
+  "內容架構設計": {
+    "zh": "內容架構設計",
+    "en": "Content Structure Design"
+  },
+  "線上閱讀": {
+    "zh": "線上閱讀",
+    "en": "Online Reading"
+  },
+  "visual-paradigm.com →": {
+    "zh": "visual-paradigm.com →",
+    "en": "visual-paradigm.com →"
+  },
+  "官網資訊": {
+    "zh": "官網資訊",
+    "en": "Official Website"
+  },
+  "scif.org.tw →": {
+    "zh": "scif.org.tw →",
+    "en": "scif.org.tw →"
+  },
+  "紙本印製 1,000 份 · 100% 良好評價": {
+    "zh": "紙本印製 1,000 份 · 100% 良好評價",
+    "en": "1,000 Physical Copies Printed · 100% Positive Feedback"
+  },
+  "6. CAKE": {
+    "zh": "6. CAKE",
+    "en": "6. CAKE"
+  },
+  "產品優化 · Side Project": {
+    "zh": "產品優化 · 個人專案",
+    "en": "Product Optimization · Side Project"
+  },
+  "Cake 人才平台履歷完成率優化": {
+    "zh": "Cake 人才平台履歷完成率優化",
+    "en": "Optimizing Resume Completion Rate on the Cake Talent Platform"
+  },
+  "訪談 11 位使用者（新鮮人至 Junior，滾雪球取樣），歸納 3 類 Persona，提出短中長期三階段解決方案：短期改善填答困惑、中期優化流程順暢度、長期導入 AI 履歷教練，目標提升首份履歷完成率與投遞率。": {
+    "zh": "訪談 11 位使用者（新鮮人至 Junior，滾雪球取樣），歸納 3 類 Persona，提出短中長期三階段解決方案：短期改善填答困惑、中期優化流程順暢度、長期導入 AI 履歷教練，目標提升首份履歷完成率與投遞率。",
+    "en": "Interviewed 11 users, from fresh graduates to junior professionals, through snowball sampling. Synthesized 3 persona types and proposed a three-stage solution: short-term improvements to reduce form-filling confusion, mid-term optimization of flow smoothness, and long-term introduction of an AI resume coach, aiming to improve first-resume completion and application rates."
+  },
+  "11 人訪談": {
+    "zh": "11 人訪談",
+    "en": "11 User Interviews"
+  },
+  "3 類 Persona": {
+    "zh": "3 類 Persona",
+    "en": "3 Persona Types"
+  },
+  "分階段提案": {
+    "zh": "分階段提案",
+    "en": "Phased Proposal"
+  },
+  "User Journey Map — 何誠仁，2 年工作經驗，考慮轉職": {
+    "zh": "使用者旅程圖 — 何誠仁，2 年工作經驗，考慮轉職",
+    "en": "User Journey Map — He Cheng-Ren, 2 Years of Work Experience, Considering a Career Change"
+  },
+  "Data Analysis": {
+    "zh": "數據分析",
+    "en": "Data Analysis"
+  },
+  "量化研究": {
+    "zh": "量化研究",
+    "en": "Quantitative Research"
+  },
+  "脊髓損傷者維持正常生活支出調查": {
+    "zh": "脊髓損傷者維持正常生活支出調查",
+    "en": "Survey on the Cost of Maintaining Daily Life for People with Spinal Cord Injuries"
+  },
+  "以圖文方式呈現脊髓損傷者面臨的生活處境，揭露照顧支出結構與資源缺口。": {
+    "zh": "以圖文方式呈現脊髓損傷者面臨的生活處境，揭露照顧支出結構與資源缺口。",
+    "en": "Presented the living conditions faced by people with spinal cord injuries through visuals and text, revealing care expense structures and resource gaps."
+  },
+  "問卷設計": {
+    "zh": "問卷設計",
+    "en": "Survey Design"
+  },
+  "統計分析": {
+    "zh": "統計分析",
+    "en": "Statistical Analysis"
+  },
+  "視覺化呈現": {
+    "zh": "視覺化呈現",
+    "en": "Data Visualization"
+  },
+  "期刊研究": {
+    "zh": "期刊研究",
+    "en": "Journal Research"
+  },
+  "居家脊髓損傷者長期照顧需求調查": {
+    "zh": "居家脊髓損傷者長期照顧需求調查",
+    "en": "Survey on Long-Term Care Needs of Home-Based People with Spinal Cord Injuries"
+  },
+  "設計問卷了解長照需求，統計分析後發表至學術期刊，提供政策與服務設計依據。": {
+    "zh": "設計問卷了解長照需求，統計分析後發表至學術期刊，提供政策與服務設計依據。",
+    "en": "Designed a survey to understand long-term care needs, conducted statistical analysis, and published the findings in an academic journal to support policy and service design."
+  },
+  "期刊發表": {
+    "zh": "期刊發表",
+    "en": "Journal Publication"
+  },
+  "國際會議": {
+    "zh": "國際會議",
+    "en": "International Conference"
+  },
+  "國際脊髓損傷年會海報": {
+    "zh": "國際脊髓損傷年會海報",
+    "en": "International Spinal Cord Injury Conference Poster"
+  },
+  "排便排尿樣態調查": {
+    "zh": "排便排尿樣態調查",
+    "en": "Bowel and Bladder Pattern Survey"
+  },
+  "主責海報製作、圖表設計、內容撰寫與會議投稿，代表研究成果於 ISCOS 國際年會發表。": {
+    "zh": "主責海報製作、圖表設計、內容撰寫與會議投稿，代表研究成果於 ISCOS 國際年會發表。",
+    "en": "Led poster production, chart design, content writing, and conference submission, presenting research findings at the ISCOS Annual Meeting."
+  },
+  "ISCOS 年會": {
+    "zh": "ISCOS 年會",
+    "en": "ISCOS Annual Meeting"
+  },
+  "海報設計": {
+    "zh": "海報設計",
+    "en": "Poster Design"
+  },
+  "會議投稿": {
+    "zh": "會議投稿",
+    "en": "Conference Submission"
+  },
+  "入住機構調查": {
+    "zh": "入住機構調查",
+    "en": "Institutional Residence Survey"
+  },
+  "深入探討脊髓損傷者機構入住決策因素，主責海報製作與會議投稿。": {
+    "zh": "深入探討脊髓損傷者機構入住決策因素，主責海報製作與會議投稿。",
+    "en": "Explored decision factors for institutional residence among people with spinal cord injuries, leading poster production and conference submission."
+  },
+  "聊聊你的想法？": {
+    "zh": "聊聊你的想法？",
+    "en": "Have an idea to discuss?"
+  },
+  "不管是合作機會、產品交流，": {
+    "zh": "不管是合作機會、產品交流，",
+    "en": "Whether it is a collaboration opportunity, product exchange,"
+  },
+  "或只是想說聲哈囉，我都很歡迎。": {
+    "zh": "或只是想說聲哈囉，我都很歡迎。",
+    "en": "or simply saying hello, I am always open to connecting."
+  },
+  "寄信給我": {
+    "zh": "寄信給我",
+    "en": "Email Me"
+  },
+  "LinkedIn": {
+    "zh": "LinkedIn",
+    "en": "LinkedIn"
+  },
+  "Notion 作品集": {
+    "zh": "Notion 作品集",
+    "en": "Notion Portfolio"
+  },
+  "© 2025 Berry Cheng": {
+    "zh": "© 2025 Berry Cheng",
+    "en": "© 2025 Berry Cheng"
+  },
+  "Made with care ✦": {
+    "zh": "用心製作 ✦",
+    "en": "Made with care ✦"
+  }
+};
+const I18N_ALT = {
+  "Berry Cheng": {
+    "zh": "Berry Cheng",
+    "en": "Berry Cheng"
+  },
+  "Kmoji Detective": {
+    "zh": "Kmoji Detective",
+    "en": "Kmoji Detective"
+  },
+  "Big Five Ocean": {
+    "zh": "Big Five Ocean",
+    "en": "Big Five Ocean"
+  },
+  "Wireframe": {
+    "zh": "線框稿",
+    "en": "Wireframe"
+  },
+  "User Journey Map": {
+    "zh": "使用者旅程圖",
+    "en": "User Journey Map"
+  },
+  "專業玩家": {
+    "zh": "專業玩家",
+    "en": "Professional Player"
+  },
+  "博弈玩家": {
+    "zh": "博弈玩家",
+    "en": "Wagering Player"
+  },
+  "體育愛好者": {
+    "zh": "體育愛好者",
+    "en": "Sports Enthusiast"
+  },
+  "遊戲社交者": {
+    "zh": "遊戲社交者",
+    "en": "Social Gamer"
+  },
+  "安全感問題架構": {
+    "zh": "安全感問題架構",
+    "en": "Security Need Problem Structure"
+  },
+  "工作坊現場": {
+    "zh": "工作坊現場",
+    "en": "Workshop Scene"
+  },
+  "工作坊產出架構": {
+    "zh": "工作坊產出架構",
+    "en": "Workshop Output Structure"
+  },
+  "脊髓損傷照顧工具書": {
+    "zh": "脊髓損傷照顧工具書",
+    "en": "Spinal Cord Injury Care Handbook"
+  },
+  "Cake User Journey Map": {
+    "zh": "Cake 使用者旅程圖",
+    "en": "Cake User Journey Map"
+  }
+};
+const I18N_META = {
+  "zh": {
+    "title": "鄭旭博 Berry Cheng — 產品經理",
+    "description": "Berry Cheng，產品經理，擁有教育、非營利、ESG 領域產品開發與研究經驗，擅長使用者研究與數據驅動決策。",
+    "ogTitle": "鄭旭博 Berry Cheng — 產品經理",
+    "ogDescription": "以使用者與數據為核心的產品決策者｜教育、非營利、ESG 領域產品開發與研究經驗",
+    "twitterTitle": "鄭旭博 Berry Cheng — 產品經理",
+    "twitterDescription": "以使用者與數據為核心的產品決策者"
+  },
+  "en": {
+    "title": "Berry Cheng — Product Manager",
+    "description": "Berry Cheng is a product manager with product development and research experience across education, nonprofit, and ESG fields, specializing in user research and data-driven decision making.",
+    "ogTitle": "Berry Cheng — Product Manager",
+    "ogDescription": "A user- and data-driven product decision maker with product development and research experience across education, nonprofit, and ESG fields.",
+    "twitterTitle": "Berry Cheng — Product Manager",
+    "twitterDescription": "A user- and data-driven product decision maker."
+  }
+};
+const i18nTextNodes = new Map();
+let i18nReady = false;
+
+function initI18nNodes() {
+  if (i18nReady) return;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest('script, style, svg')) return NodeFilter.FILTER_REJECT;
+      const key = node.nodeValue.trim();
+      return I18N_TEXT[key] ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    }
+  });
+  let node;
+  while ((node = walker.nextNode())) {
+    i18nTextNodes.set(node, node.nodeValue);
+  }
+  document.querySelectorAll('img[alt]').forEach(img => {
+    if (!img.dataset.i18nAltKey) img.dataset.i18nAltKey = img.getAttribute('alt');
+  });
+  i18nReady = true;
+}
+
+function replacePreservingWhitespace(original, translated) {
+  const leading = original.match(/^\s*/)[0];
+  const trailing = original.match(/\s*$/)[0];
+  return leading + translated + trailing;
+}
+
+function setLanguage(lang) {
+  initI18nNodes();
+  const selected = lang === 'en' ? 'en' : 'zh';
+  document.documentElement.lang = selected === 'en' ? 'en' : 'zh-TW';
+  document.body.dataset.lang = selected;
+  i18nTextNodes.forEach((original, node) => {
+    const key = original.trim();
+    const entry = I18N_TEXT[key];
+    if (entry && entry[selected]) node.nodeValue = replacePreservingWhitespace(original, entry[selected]);
+  });
+  document.querySelectorAll('img[alt]').forEach(img => {
+    const key = img.dataset.i18nAltKey;
+    if (I18N_ALT[key] && I18N_ALT[key][selected]) img.setAttribute('alt', I18N_ALT[key][selected]);
+  });
+  document.querySelectorAll('[data-i18n-href-zh][data-i18n-href-en]').forEach(link => {
+    const href = selected === 'en' ? link.dataset.i18nHrefEn : link.dataset.i18nHrefZh;
+    if (href) link.setAttribute('href', href);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === selected;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  const m = I18N_META[selected];
+  if (m) {
+    document.title = m.title;
+    const setMeta = (selector, value) => {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute('content', value);
+    };
+    setMeta('meta[name="description"]', m.description);
+    setMeta('meta[property="og:title"]', m.ogTitle);
+    setMeta('meta[property="og:description"]', m.ogDescription);
+    setMeta('meta[name="twitter:title"]', m.twitterTitle);
+    setMeta('meta[name="twitter:description"]', m.twitterDescription);
+  }
+  try { localStorage.setItem('siteLanguage', selected); } catch (e) {}
+}
+
+setLanguage((() => {
+  try { return localStorage.getItem('siteLanguage') || 'zh'; } catch (e) { return 'zh'; }
+})());
+</script>
+
 <script>
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("visible");obs.unobserve(x.target)}})},{threshold:0.08});
 document.querySelectorAll(".fade-up").forEach(el=>obs.observe(el));
@@ -497,7 +1273,7 @@ function switchProto(btn) {
   document.querySelectorAll('.ptab').forEach(b => {
     b.classList.remove('active','active-final');
   });
-  const isFinal = btn.textContent.includes('最終');
+  const isFinal = btn.textContent.includes('最終') || btn.textContent.includes('Final');
   btn.classList.add(isFinal ? 'active-final' : 'active');
   const url = btn.dataset.url;
   const frame = document.getElementById('protoFrame');
